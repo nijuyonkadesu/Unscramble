@@ -52,6 +52,8 @@ class GameFragment : Fragment() {
         // Inflate the layout XML file and return a binding object instance
         binding = GameFragmentBinding.inflate(inflater, container, false)
         Log.d("GameFragment", "GameFragment created/re-created!")
+        Log.d("GameFragment", "Word: ${viewModel.currentScrambledWord} " +
+                "Score: ${viewModel.score} WordCount: ${viewModel.currentWordCount}")
         return binding.root
     }
 
@@ -73,7 +75,7 @@ class GameFragment : Fragment() {
         Log.d("GameFragment", "GameFragment destroyed!")
     }
 
-    /*
+    /**
         * Checks the user's word, and updates the score accordingly.
         * Displays the next scrambled word.
         */
@@ -91,7 +93,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    /*
+    /**
      * Skips the current word without changing the score.
      * Increases the word count.
      */
@@ -104,7 +106,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    /*
+    /**
      * Gets a random word for the list of words and shuffles the letters in it.
      */
     private fun getNextScrambledWord(): String {
@@ -113,23 +115,24 @@ class GameFragment : Fragment() {
         return String(tempWord)
     }
 
-    /*
+    /**
      * Re-initializes the data in the ViewModel and updates the views with the new data, to
      * restart the game.
      */
     private fun restartGame() {
+        viewModel.reinitializeData()
         setErrorTextField(false)
         updateNextWordOnScreen()
     }
 
-    /*
+    /**
      * Exits the game.
      */
     private fun exitGame() {
         activity?.finish()
     }
 
-    /*
+    /**
     * Sets and resets the text field error status.
     */
     private fun setErrorTextField(error: Boolean) {
@@ -142,7 +145,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    /*
+    /**
      * Displays the next scrambled word on screen.
      */
     private fun updateNextWordOnScreen() {
