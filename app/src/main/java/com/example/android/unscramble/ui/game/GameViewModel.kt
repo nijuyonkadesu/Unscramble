@@ -22,6 +22,7 @@ class GameViewModel: ViewModel() {
         super.onCleared()
         Log.d("GameFragment", "GameViewModel is destroyed")
     }
+
     private fun getNextWord(){
         do{
             currentWord = allWordsList.random()
@@ -34,11 +35,23 @@ class GameViewModel: ViewModel() {
             _currentScrambledWord = String(tempWord)
         } while (_currentScrambledWord == currentWord)
     }
+
     fun nextWord(): Boolean{
         return if (_currentWordCount < MAX_NO_OF_WORDS) {
             getNextWord()
             true
         }else false
+    }
+
+    private fun increaseScore(){
+        _score += SCORE_INCREASE
+    }
+
+    fun isUserWordCorrect(playerWord: String): Boolean{
+        return if(playerWord.equals(currentWord, true)){
+            increaseScore()
+            true
+        } else false
     }
 }
 
