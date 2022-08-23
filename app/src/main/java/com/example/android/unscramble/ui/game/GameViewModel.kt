@@ -6,21 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel: ViewModel() {
-    init { // to initialize lateinit properties when class created for the first time
-        Log.d("GameFragment", "GameViewModel created")
-        getNextWord()
-    }
     private var wordsList: MutableList<String>? = mutableListOf()
     private lateinit var currentWord: String
     private var _score = MutableLiveData(0)
+
     val score: LiveData<Int>
         get() = _score
     private val _currentScrambledWord = MutableLiveData<String>() // object remains same, only value within is changed
+
     val currentScrambledWord: LiveData<String>
         get() = _currentScrambledWord  // backing
     private var _currentWordCount = MutableLiveData(0)
+
     val currentWordCount: LiveData<Int>
         get() = _currentWordCount
+
+    init { // to initialize lateinit properties when class created for the first time
+           // moving init block after defining class properties -> solves NPE
+        Log.d("GameFragment", "GameViewModel created")
+        getNextWord()
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -32,11 +37,11 @@ class GameViewModel: ViewModel() {
             currentWord = allWordsList.random()
         } while (wordsList?.contains(currentWord) == true)
         wordsList?.add(currentWord)
-        _currentWordCount.value = (_currentWordCount.value)?.inc() // TODO: null reference on WordCount
+        _currentWordCount.value = (_currentWordCount.value)?.inc()
         do {
             val tempWord = currentWord.toCharArray()
             tempWord.shuffle()
-            _currentScrambledWord.value = String(tempWord) // TODO: null reference on ScrambledWord
+            _currentScrambledWord.value = String(tempWord)
         } while (_currentScrambledWord.value == currentWord)
     }
 
