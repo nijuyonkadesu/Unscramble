@@ -20,11 +20,14 @@ You need to know:
 - Able to update the UI of the app based on user input.
 - Able to add a click listener to a Button.
 
+## Previews
+<p align="center">
+<img src="previews/ss (1).png" alt="drawing" width="270px" />
+<img src="previews/ss (2).png" alt="drawing" width="270px" /><br>
+</p>
 
-Getting Started
----------------
-
-1. Download and run the app.
+## Download APK
+Go to the [Releases](https://github.com/nijuyonkadesu/Unscramble/releases) to download the latest APK
 
 License
 -------
